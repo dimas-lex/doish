@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Checkbox, FormControlLabel, TextField, Box, Input, Button } from '@mui/material';
+import { Checkbox, FormControlLabel, TextField, Box, Button } from '@mui/material';
 
-import { Controller, useForm } from "react-hook-form";
 import { TTask } from '../../features/task/taskSlice';
 
-export const Task = ({ task }: { task: TTask }) => {
+export const Task = ({ task, onSubmit }: { task: TTask, onSubmit: (t: TTask) => void }) => {
   const [formData, setFormData] = useState(task)
-  const onSubmit = () => { }
+  const submitHandler = () => onSubmit(formData);
+
   const onFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => e.target.select();
   return (
     <Box
@@ -76,7 +76,7 @@ export const Task = ({ task }: { task: TTask }) => {
         )}
       />
 
-      <Button onClick={onSubmit} variant="contained" autoFocus>
+      <Button onClick={submitHandler} variant="contained" autoFocus>
         Submit
       </Button>
     </Box>

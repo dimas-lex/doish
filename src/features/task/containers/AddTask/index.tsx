@@ -2,8 +2,7 @@ import React from "react";
 import dayjs from "dayjs";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch, useAppSelector } from "../../../../app/hooks";
-import { selectIsAdding, toggleAddTask, TTask } from "../../taskSlice";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { addNewTask, selectIsAdding, toggleAddTask, TTask } from "../../taskSlice";
 import { DialogBox } from "../../../../components/DialogBox";
 import { Task } from "../../../../components/Task";
 
@@ -12,6 +11,10 @@ export const AddTask = () => {
   const isOpen = useAppSelector(selectIsAdding);
 
   const closeAddTask = () => dispatch(toggleAddTask());
+  const submitTaskHandler = (task: TTask) => {
+    dispatch(addNewTask({task}));
+    closeAddTask()
+  }
 
   const task = {
     id: uuidv4(),
@@ -27,11 +30,9 @@ export const AddTask = () => {
       isOpen={isOpen}
       title="New TO DO"
       submitText="Add New"
-
       onClose={closeAddTask}
-      onSubmit={closeAddTask}
     >
-      <Task task={task} />
+      <Task task={task} onSubmit={submitTaskHandler} />
     </DialogBox>
   );
 }

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
-import { RootState, AppThunk } from '../../app/store';
+import { RootState } from '../../app/store';
 import { fetchTasks } from './taskAPI';
 
 export type TTask = {
@@ -24,6 +24,8 @@ const initialState: CounterState = {
 };
 
 export const toggleAddTask = createAction('task/toggleAddTask');
+export const addNewTask = createAction<{ task: TTask }>('task/addNewTask');
+export const postponeTask = createAction<{ id: string}>('task/postponeTask');
 
 export const fetchTasksAsync = createAsyncThunk(
   'task/fetchTasksAsync',
@@ -53,6 +55,17 @@ export const taskSlice = createSlice({
         state.status = 'idle';
         state.tasks = action.payload
         console.log(action.payload)
+      })
+      .addCase(postponeTask, (state, action) => {
+        const task = state.tasks.find((task) => task.id === action.payload.id) ;
+        if (task) {
+          task.isPostpone = !task?.isPostpone;
+        }
+
+      })
+      .addCase(addNewTask, (state, action) => {
+        state.tasks = [...state.tasks, action.payload.task]
+
       });
   },
 });

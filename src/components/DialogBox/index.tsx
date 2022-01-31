@@ -1,20 +1,17 @@
 import React from 'react';
-import { Button, Dialog, DialogActions, DialogContent,  DialogTitle } from '@mui/material';
+import { Dialog, DialogContent,  DialogTitle } from '@mui/material';
 
 export const DialogBox = ({
   isOpen,
   title,
-  submitText,
   children,
   onClose,
-  onSubmit,
 }: {
   isOpen: boolean;
   title: string;
   submitText: string;
   children?: React.ReactNode;
   onClose: () => void;
-  onSubmit: () => void;
 }) => {
 
 
