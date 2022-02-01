@@ -15,7 +15,7 @@ export const TaskItem = ({ task, onPostpone }: { task: TTask, onPostpone: (id: T
             {task.title}
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" component="div" className="cy-task-item__due-date">
-            {dayjs(task.dueDate).format('DD MMM YY')}
+            { dayjs.unix(+task.dueDate).format('DD MMM YYYY') }
           </Typography>
         </Box>
 

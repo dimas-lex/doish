@@ -71,6 +71,7 @@ export const AppToolbar = ({ onAddClick }: {
       <Box sx={{ flexGrow: 4 }} />
 
       <StyledFab
+        className="cy-add-task"
         color="secondary"
         aria-label="add"
         sx={{
