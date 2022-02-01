@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
-import dayjs from 'dayjs';
 import { RootState } from '../../app/store';
 import { fetchTasks } from './taskAPI';
 
