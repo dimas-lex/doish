@@ -1,9 +1,8 @@
 
 import React from 'react';
-import dayjs from 'dayjs';
 import { Stack } from '@mui/material';
 import { useAppSelector } from "../../../../app/hooks";
-import { selectAllTasks, TTask } from "../../taskSlice";
+import { selectAllTasks } from "../../taskSlice";
 import { TaskItem } from '../TaskItem';
 
 
