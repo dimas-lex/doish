@@ -63,7 +63,7 @@ export const Task = ({ task, onSubmit }: { task: TTask, onSubmit: (t: TTask) => 
             onChange={e =>
               setFormData({
                 ...formData,
-                isDone: e.target.value === 'true'
+                isDone: e.target.checked
               })
             }
           />
@@ -76,12 +76,12 @@ export const Task = ({ task, onSubmit }: { task: TTask, onSubmit: (t: TTask) => 
         label="Postpone task"
         control={(
           <Checkbox
-            className="cy-task__is-postpone"
+            className="cy-task__is-postponed"
             value={formData?.isPostpone}
             onChange={e =>
               setFormData({
                 ...formData,
-                isPostpone: e.target.value === 'true'
+                isPostpone: e.target.checked
               })
             }
           />

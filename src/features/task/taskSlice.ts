@@ -26,6 +26,7 @@ const initialState: CounterState = {
 export const toggleAddTask = createAction('task/toggleAddTask');
 export const addNewTask = createAction<{ task: TTask }>('task/addNewTask');
 export const postponeTask = createAction<{ id: string}>('task/postponeTask');
+export const doneTask = createAction<{ id: string}>('task/doneTask');
 
 export const fetchTasksAsync = createAsyncThunk(
   'task/fetchTasksAsync',
@@ -61,11 +62,15 @@ export const taskSlice = createSlice({
         if (task) {
           task.isPostpone = !task?.isPostpone;
         }
-
+      })
+      .addCase(doneTask, (state, action) => {
+        const task = state.tasks.find((task) => task.id === action.payload.id) ;
+        if (task) {
+          task.isDone = !task?.isDone;
+        }
       })
       .addCase(addNewTask, (state, action) => {
         state.tasks = [...state.tasks, action.payload.task]
-
       });
   },
 });
