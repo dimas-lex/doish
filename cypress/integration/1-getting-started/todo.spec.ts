@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 
+import dayjs from "dayjs";
+import { type } from "os";
+import { TTask } from "../../../src/features/task/taskSlice";
+
 
 describe('example to-do app', () => {
   beforeEach(() => {
@@ -8,36 +12,51 @@ describe('example to-do app', () => {
 
   it('displays 0 todo items by default', () => {
     cy.get('.cy-task-list').should('be.visible');
-    cy.get('.cy-task-list__no-items').should('be.visible') .should('have.length', 1)
+    cy.get('.cy-task-list__no-items').should('be.visible').should('have.length', 1)
 
     cy.get('.cy-task-list__no-items').should('have.text', 'No tasks defined');
   })
 
 
   it('can add new todo items', () => {
-    // We'll store our item text in a variable so we can reuse it
-    const newItem = 'Feed the cat'
+    const newItem: TTask = {
+      id: "1",
+      title: "Task Title",
+      description: "Some description",
+      dueDate: dayjs().add(5, 'day').format('YYYY-MM-DD'),
+      isDone: false,
+      isPostpone: false
+    };
 
-    // Let's get the input element and use the `type` command to
-    // input our new list item. After typing the content of our item,
-    // we need to type the enter key as well in order to submit the input.
-    // This input has a data-test attribute so we'll use that to select the
-    // element in accordance with best practices:
-    // https://on.cypress.io/selecting-elements
-    cy.get('[data-test=new-todo]').type(`${newItem}{enter}`)
+    cy.get('.cy-add-task ').click();
 
-    // Now that we've typed our new item, let's check that it actually was added to the list.
-    // Since it's the newest item, it should exist as the last element in the list.
-    // In addition, with the two default items, we should have a total of 3 elements in the list.
-    // Since assertions yield the element that was asserted on,
-    // we can chain both of these assertions together into a single statement.
-    cy.get('.todo-list li')
-      .should('have.length', 3)
-      .last()
-      .should('have.text', newItem)
+    cy.get('.cy-dialog-box__title')
+      .should('be.visible')
+      .should('contain', 'New TO DO')
+
+    cy.get('.cy-task__title')
+      .clear()
+      .type(newItem.title);
+
+    cy.get('.cy-task__description')
+      .clear()
+      .type(newItem.description || '');
+
+    cy.get('#task-dueDate')
+      .clear()
+      .type(newItem.dueDate || '');
+
+    cy.get('.cy-task__submit').click();
+    cy.get('.cy-dialog-box').should('not.exist');
+
+
+    cy.get('.cy-task-list__item').should('be.visible').should('have.length', 1)
+
+
+
   })
 
-  it('can check off an item as completed', () => {
+  xit('can check off an item as completed', () => {
     // In addition to using the `get` command to get an element by selector,
     // we can also use the `contains` command to get an element by its contents.
     // However, this will yield the <label>, which is lowest-level element that contains the text.
@@ -59,7 +78,7 @@ describe('example to-do app', () => {
       .should('have.class', 'completed')
   })
 
-  context('with a checked task', () => {
+  xcontext('with a checked task', () => {
     beforeEach(() => {
       // We'll take the command we used above to check off an element
       // Since we want to perform multiple tests that start with checking
