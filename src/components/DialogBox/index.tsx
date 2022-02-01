@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogContent,  DialogTitle } from '@mui/material';
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 export const DialogBox = ({
   isOpen,
@@ -17,12 +17,13 @@ export const DialogBox = ({
 
   return (
     <Dialog
+      className="cy-dialog-box"
       open={isOpen}
       onClose={onClose}
       aria-labelledby="dialog-title"
       aria-describedby="dialog-description"
     >
-      <DialogTitle id="dialog-title">
+      <DialogTitle id="dialog-title" className="cy-dialog-box__title">
         {title}
       </DialogTitle>
 
@@ -31,7 +32,7 @@ export const DialogBox = ({
           minWidth: 210,
           minHeight: 180,
         }}>
-          {children}
+        {children}
       </DialogContent>
 
       {/* <DialogActions>
