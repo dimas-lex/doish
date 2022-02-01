@@ -22,7 +22,7 @@ export const TaskList = () => {
         tasks.length
           ? tasks.map((task) => {
             return (
-              <div className="cy-task-list__item" ><TaskItem key={task.id} task={task} /></div>
+              <div key={task.id} className="cy-task-list__item" ><TaskItem  task={task} /></div>
             )
           })
           : <div className="cy-task-list__no-items" >No tasks defined</div>

@@ -1,12 +1,22 @@
 import React from 'react';
 import dayjs from 'dayjs';
-import { Box, Card, Switch, Typography } from '@mui/material';
+import { Box, Button, Card, Switch, Typography } from '@mui/material';
 import { TTask } from '../../features/task/taskSlice';
 
-export const TaskItem = ({ task, onPostpone }: { task: TTask, onPostpone: (id: TTask["id"]) => void }) => {
+export const TaskItem = ({ task, onPostpone, onDone }:
+  {
+    task: TTask,
+    onPostpone: (id: TTask["id"]) => void,
+    onDone: (id: TTask["id"]) => void,
+  }) => {
 
   return (
-    <Card sx={{ display: 'flex', alignItems: 'center', p: '10px' }}>
+    <Card sx={{
+      display: 'flex',
+       alignItems: 'center',
+       p: '10px',
+      backgroundColor: task.isPostpone ? 'grey.100' : (task.isDone ? 'grey.500' : 'grey.50'),
+    }} >
       <input type="hidden" className="cy-task-item__id" value={task.id} />
 
       <Box sx={{ display: 'flex', flexDirection: 'column', flex: '3 3 auto' }}>
@@ -15,7 +25,7 @@ export const TaskItem = ({ task, onPostpone }: { task: TTask, onPostpone: (id: T
             {task.title}
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" component="div" className="cy-task-item__due-date">
-            { dayjs.unix(+task.dueDate).format('DD MMM YYYY') }
+            {dayjs.unix(+task.dueDate).format('DD MMM YYYY')}
           </Typography>
         </Box>
 
@@ -26,16 +36,18 @@ export const TaskItem = ({ task, onPostpone }: { task: TTask, onPostpone: (id: T
 
       <Box sx={{ flex: '1 1 auto' }}>
         <Switch
-          className={`cy-task-item__postpone `}
+          className="cy-task-item__postponed"
+          disabled={task.isDone}
           checked={task.isPostpone}
           onChange={() => onPostpone(task.id)}
           inputProps={{ 'aria-label': 'Postpone task' }}
         />
       </Box>
 
-      <Box sx={{ flex: '1 1 auto' }}
-        className="cy-task-item__delete">
-        delete
+      <Box sx={{ flex: '1 1 auto' }}>
+        <Button variant="contained" className="cy-task-item__delete" onClick={() => onDone(task.id)}>
+          {task.isDone ? 'Undone' : 'Done'}
+        </Button>
       </Box>
 
     </Card>
