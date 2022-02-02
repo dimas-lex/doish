@@ -7,7 +7,7 @@ import { TTask } from "../../../src/features/task/taskSlice";
 
 describe('example to-do app', () => {
   beforeEach(() => {
-    cy.visit('https://lively-beach-00cc3e203.1.azurestaticapps.net/')
+    cy.visit('/')
   })
 
   it('displays 0 todo items by default', () => {
@@ -58,7 +58,7 @@ describe('example to-do app', () => {
       cy.get('.cy-task-item__title').should('contain.text', newItem.title);
       cy.get('.cy-task-item__description').should('contain.text', newItem.description);
       cy.get('.cy-task-item__due-date').should('contain.text', dayjs(newItem.dueDate).format('DD MMM YYYY'));
-      cy.get('.cy-task-item__postpone').should('be.not.checked')
+      cy.get('.cy-task-item__postponed').should('be.not.checked')
     });
   })
 
@@ -79,7 +79,7 @@ describe('example to-do app', () => {
       cy.get('.cy-task__title')
       .clear()
       .type(newItem.title);
-      cy.get('.cy-task__is-postpone input')
+      cy.get('.cy-task__is-postponed input')
         .check()
 
     cy.get('.cy-task__submit').click();
@@ -92,7 +92,7 @@ describe('example to-do app', () => {
     cy.get('.cy-task-list__item').first()
     .within(() => {
       cy.get('.cy-task-item__title').should('contain.text', newItem.title);
-      cy.get('.cy-task-item__postpone').should('be.checked')
+      cy.get('.cy-task-item__postponed input').should('be.checked')
     });
   })
 })
