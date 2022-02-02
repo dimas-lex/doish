@@ -17,15 +17,16 @@ export const TaskList = () => {
       spacing={2}
       className="cy-task-list"
     >
-
       {
         tasks.length
           ? tasks.map((task) => {
             return (
-              <div key={task.id} className="cy-task-list__item" ><TaskItem  task={task} /></div>
+              <div key={task.id} className="cy-task-list__item">
+                <TaskItem task={task} />
+              </div>
             )
           })
-          : <div className="cy-task-list__no-items" >No tasks defined</div>
+          : <div className="cy-task-list__no-items">No tasks defined</div>
       }
     </Stack>
   )

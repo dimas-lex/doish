@@ -4,7 +4,7 @@ import { fetchTasks } from './taskAPI';
 
 export type TTask = {
   id: string;
-  title?: string;
+  title: string;
   description?: string;
   dueDate: string;
   isDone: boolean;
