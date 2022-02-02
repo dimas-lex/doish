@@ -32,7 +32,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "play:run": "npx playwright test",
+    "play:open": "npx playwright test --headed"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@playwright/test": "^1.18.1",
     "@types/uuid": "^8.3.4",
     "cypress": "^9.4.1",
     "mini-css-extract-plugin": "2.4.5"
